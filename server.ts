@@ -1,14 +1,12 @@
-import express, { Request, Response } from 'express';
-import Constants from './src/constants';
+import express from 'express';
+import router from './src/routes/router';
 import { logger } from './src/utils';
+import Constants from './src/common/constants';
 
 const app = express();
 
 app.use(express.json());
-
-app.get('/status', (request: Request, response: Response) => {
-    response.status(200).send({ success: true });
-});
+app.use('/api', router);
 
 if (process.env.APP_ENV === Constants.APP_ENV.DEVELOPMENT) {
     const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;

@@ -16,6 +16,7 @@ ENV HUSKY=0
 # Copying this first prevents re-running npm install on every code change.
 COPY package*.json ./
 
+# Uncomment and use below packges if there are any issues in npm install
 # RUN apk --no-cache --virtual build-dependencies add \
 #     python \
 #     make \

@@ -5,7 +5,7 @@
     "main": ".build/server.js",
     "scripts": {
         "prepare": "husky install",
-        "lint": "node_modules/.bin/eslint server.ts src/**.ts",
+        "lint": "node_modules/.bin/eslint --ext .ts",
         "build": "tsc",
         "prestart": "npm run lint & npm run build",
         "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
@@ -45,6 +45,8 @@
         "@types/verror": "^1.10.4",
         "axios": "^0.21.1",
         "express": "^4.17.1",
+        "fast-safe-stringify": "^2.0.7",
+        "moment-timezone": "^0.5.33",
         "typescript": "^4.2.4",
         "verror": "^1.10.0",
         "winston": "^3.3.3"

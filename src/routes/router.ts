@@ -10,6 +10,6 @@ router.get('/status', (req: Request, resp: Response) => {
     });
 });
 
-router.get('/check_and_notify', checkSlotAndNotifyController.checkSlotAndNotify);
+router.get('/check_and_notify_washim', checkSlotAndNotifyController.checkAndNotifyWashim);
 
 export default router;

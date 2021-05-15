@@ -12,8 +12,10 @@
                 "<node_internals>/**"
             ],
             "runtimeExecutable": "npm",
-            "preLaunchTask": "npm: build",
-            "runtimeArgs": ["run-script", "start"],
+            "runtimeArgs": ["run-script", "dev"],
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
             "env": {
                 "APP_ENV": "dev"
             },

@@ -21,6 +21,7 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'import/prefer-default-export': 'off',
+        camelcase: 'off',
         'import/extensions': [
             'error',
             'ignorePackages',

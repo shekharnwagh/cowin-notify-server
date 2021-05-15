@@ -13,7 +13,7 @@
         "build:image": "docker build -t cowin-notify-server .",
         "heroku:push-image": "heroku container:push web -a cowin-notify-server",
         "heroku:release-image": "heroku container:release web -a cowin-notify-server",
-        "heroku:deploy": "npm run heroku:push-image && heroku:release-image"
+        "heroku:deploy": "npm run heroku:push-image && npm run heroku:release-image"
     },
     "repository": {
         "type": "git",

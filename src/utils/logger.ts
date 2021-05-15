@@ -1,5 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-var-requires */
 const { createLogger, format, transports } = require('winston');
+const { getCurrentFormattedTimestamp } = require('./moment');
 
 const { combine, json, prettyPrint, colorize, printf } = format;
 
@@ -11,24 +12,19 @@ const consoleFormat = printf(printfCb);
 
 let logger;
 
-// function stackDriverJsonFormat(info: any) {
-//     const log = {
-//         severity: info.level,
-//         message: info.message,
-//     };
-//     if (info.level === 'error' && info.stack) {
-//         log.message = `{ message: ${info.message}, stack: ${info.stack} }`;
-//     }
-//     return log;
-// }
+function customJson(info: any) {
+    return {
+        ...info,
+        timestamp: getCurrentFormattedTimestamp(),
+    };
+}
 
 if (process.env.APP_ENV && process.env.APP_ENV !== 'dev') {
     logger = createLogger({
-        level: 'debug',
+        level: 'info',
         transports: [
             new transports.Console({
-                // format: combine(format(stackDriverJsonFormat)(), json()),
-                format: combine(json()),
+                format: combine(format(customJson)(), json()),
             }),
         ],
     });
@@ -37,7 +33,7 @@ if (process.env.APP_ENV && process.env.APP_ENV !== 'dev') {
         level: 'debug',
         transports: [
             new transports.Console({
-                format: combine(format.timestamp(), prettyPrint(), colorize(), consoleFormat),
+                format: combine(format(customJson)(), prettyPrint(), colorize(), consoleFormat),
             }),
         ],
     });

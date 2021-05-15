@@ -30,6 +30,33 @@ const constants = {
             TEST_DEV: 'Test_Dev',
         },
     },
+    REQUEST_HEADERS: {
+        USER_AGENT: {
+            FIREFOX_1:
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:88.0) Gecko/20100101 Firefox/88.0',
+        },
+        ACCEPT: {
+            ACCEPT_JSON_TEXT: 'application/json, text/plain, */*',
+        },
+        ACCEPT_LANGUAGE: {
+            EN_US: 'Accept-Language',
+        },
+        ORIGIN: {
+            COWIN_HOME: 'https://www.cowin.gov.in',
+        },
+        CONNECTION: {
+            KEEP_ALIVE: 'keep-alive',
+        },
+        REFERER: {
+            COWIN_HOME: 'https://www.cowin.gov.in',
+        },
+        TE: {
+            TRAILERS: 'Trailers',
+        },
+        CACHE_CONTROL: {
+            NO_CACHE: 'no-cache',
+        },
+    },
     TZ: {
         IST: 'Asia/Kolkata',
     },

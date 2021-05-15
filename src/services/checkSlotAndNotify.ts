@@ -41,7 +41,41 @@ interface AvailableSlot {
     sessions: Session[];
 }
 
+interface Headers {
+    'User-Agent': string;
+    Accept: string;
+    'Accept-Language': string;
+    Origin?: string;
+    Connection: string;
+    Referer?: string;
+    TE: string;
+    'Cache-Control': string;
+}
+
 export class CheckSlotAndNotifyService {
+    private constructHeaders = (): Headers => {
+        const {
+            USER_AGENT,
+            ACCEPT,
+            ACCEPT_LANGUAGE,
+            ORIGIN,
+            CONNECTION,
+            REFERER,
+            TE,
+            CACHE_CONTROL,
+        } = Constants.REQUEST_HEADERS;
+        return {
+            'User-Agent': USER_AGENT.FIREFOX_1,
+            Accept: ACCEPT.ACCEPT_JSON_TEXT,
+            'Accept-Language': ACCEPT_LANGUAGE.EN_US,
+            Origin: ORIGIN.COWIN_HOME,
+            Connection: CONNECTION.KEEP_ALIVE,
+            Referer: REFERER.COWIN_HOME,
+            TE: TE.TRAILERS,
+            'Cache-Control': CACHE_CONTROL.NO_CACHE,
+        };
+    };
+
     private processSessionResponse = (centersData: Center[]): AvailableSlot[] => {
         const availableSlots: AvailableSlot[] = [];
 
@@ -57,6 +91,7 @@ export class CheckSlotAndNotifyService {
                 }
 
                 if (availableSessions.length) {
+                    logger.debug(`Found slots for Center: ${safeStringify(centerData)}`);
                     const {
                         center_id: centerId,
                         name,
@@ -90,13 +125,23 @@ export class CheckSlotAndNotifyService {
                 district_id: districtCode,
                 date: dateStr,
             },
+            headers: this.constructHeaders(),
         };
 
         try {
+            logger.info(
+                `Fetching slots data with request: ${safeStringify({
+                    apiUrl,
+                    requestConfig: { params: requestConfig.params },
+                })}`,
+            );
             const res = await axios.get(apiUrl, requestConfig);
 
             if (res && res.status === 200 && res.data) {
                 if (res.data && res.data.centers && res.data.centers.length) {
+                    logger.debug(
+                        `Got response with statusCode: ${res.status} and ${res.data.centers.length} centers data`,
+                    );
                     const availableSlots = this.processSessionResponse(
                         res.data.centers as Center[],
                     );
@@ -107,7 +152,7 @@ export class CheckSlotAndNotifyService {
 
                         await notifyToFlock(safeStringify(availableSlots));
                     } else {
-                        logger.debug(`No slots found at ${getCurrentFormattedTimestamp}`);
+                        logger.info(`No slots found at ${getCurrentFormattedTimestamp()}`);
                     }
                 }
             } else if (res && res.status) {
@@ -117,10 +162,10 @@ export class CheckSlotAndNotifyService {
                     }, response: ${safeStringify(res.data)})`,
                 );
                 throw error;
+            } else {
+                const error: VError = new VError('ERR while fetching data from API');
+                throw error;
             }
-
-            const error: VError = new VError('ERR while fetching data from API');
-            throw error;
         } catch (err) {
             if (err && err.response && err.response.data) {
                 const error: VError = new VError(

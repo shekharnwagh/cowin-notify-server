@@ -10,7 +10,10 @@
         "prestart": "npm run lint & npm run build",
         "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
         "start": "node .build/server.js",
-        "build:image": "docker build -t cowin-notify-server ."
+        "build:image": "docker build -t cowin-notify-server .",
+        "heroku:push-image": "heroku container:push web -a cowin-notify-server",
+        "heroku:release-image": "heroku container:release web -a cowin-notify-server",
+        "heroku:deploy": "npm run heroku:push-image && heroku:release-image"
     },
     "repository": {
         "type": "git",
@@ -40,8 +43,10 @@
         "@types/express": "^4.17.11",
         "@types/node": "^15.3.0",
         "@types/verror": "^1.10.4",
+        "axios": "^0.21.1",
         "express": "^4.17.1",
-        "winston": "^3.3.3",
-        "typescript": "^4.2.4"
+        "typescript": "^4.2.4",
+        "verror": "^1.10.0",
+        "winston": "^3.3.3"
     }
 }

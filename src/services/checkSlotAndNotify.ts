@@ -140,7 +140,7 @@ export class CheckSlotAndNotifyService {
                         logger.info(`Available ${availableSlots.length} slots`);
                         logger.info(`Slots available: ${safeStringify(availableSlots)}`);
 
-                        await notifyToFlock(safeStringify(availableSlots));
+                        await notifyToFlock(safeStringify(availableSlots, undefined, 4));
                     } else {
                         logger.info(`No slots found at ${getCurrentFormattedTimestamp()}`);
                     }

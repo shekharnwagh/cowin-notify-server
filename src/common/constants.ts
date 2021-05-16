@@ -57,6 +57,9 @@ const constants = {
             NO_CACHE: 'no-cache',
         },
     },
+    CRON_SCHEDULES: {
+        EVERY_5_MINUTES: '*/5 * * * *',
+    },
     TZ: {
         IST: 'Asia/Kolkata',
     },

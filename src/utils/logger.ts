@@ -19,7 +19,7 @@ function customJson(info: any) {
     };
 }
 
-if (process.env.APP_ENV && process.env.APP_ENV !== 'dev') {
+if (process.env.APP_ENV && process.env.APP_ENV === 'production') {
     logger = createLogger({
         level: 'info',
         transports: [

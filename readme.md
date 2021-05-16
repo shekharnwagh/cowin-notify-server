@@ -19,10 +19,10 @@ A backend server written using nodejs, express and typescript which checks cowin
 
 ### Start Scheduler
 
-- Route - `GET \api\start_scheduler`
+- Route - `GET /api/scheduler_start`
 - Start scheduler which triggers the above API every 5 minutes
 
 ### Stop Scheduler
 
-- Route - `GET \api\stop_scheduler`
+- Route - `GET /api/scheduler_stop`
 - Stops above scheduler

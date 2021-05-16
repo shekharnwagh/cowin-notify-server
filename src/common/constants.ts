@@ -41,14 +41,8 @@ const constants = {
         ACCEPT_LANGUAGE: {
             EN_US: 'Accept-Language',
         },
-        ORIGIN: {
-            COWIN_HOME: 'https://www.cowin.gov.in',
-        },
         CONNECTION: {
             KEEP_ALIVE: 'keep-alive',
-        },
-        REFERER: {
-            COWIN_HOME: 'https://www.cowin.gov.in',
         },
         TE: {
             TRAILERS: 'Trailers',

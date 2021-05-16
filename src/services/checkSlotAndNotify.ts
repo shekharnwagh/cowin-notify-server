@@ -54,23 +54,13 @@ interface Headers {
 
 export class CheckSlotAndNotifyService {
     private constructHeaders = (): Headers => {
-        const {
-            USER_AGENT,
-            ACCEPT,
-            ACCEPT_LANGUAGE,
-            ORIGIN,
-            CONNECTION,
-            REFERER,
-            TE,
-            CACHE_CONTROL,
-        } = Constants.REQUEST_HEADERS;
+        const { USER_AGENT, ACCEPT, ACCEPT_LANGUAGE, CONNECTION, TE, CACHE_CONTROL } =
+            Constants.REQUEST_HEADERS;
         return {
             'User-Agent': USER_AGENT.FIREFOX_1,
             Accept: ACCEPT.ACCEPT_JSON_TEXT,
             'Accept-Language': ACCEPT_LANGUAGE.EN_US,
-            Origin: ORIGIN.COWIN_HOME,
             Connection: CONNECTION.KEEP_ALIVE,
-            Referer: REFERER.COWIN_HOME,
             TE: TE.TRAILERS,
             'Cache-Control': CACHE_CONTROL.NO_CACHE,
         };

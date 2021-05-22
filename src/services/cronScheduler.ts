@@ -2,6 +2,7 @@ import cron from 'node-cron';
 import VError from 'verror';
 import Constants from '../common/constants';
 import { CheckSlotAndNotifyService } from './checkSlotAndNotify';
+import { notifyToFlock } from './flock';
 import { logger, getCurrentFormattedTimestamp } from '../utils';
 
 export class CronScheduler {
@@ -15,14 +16,17 @@ export class CronScheduler {
         this.scheduler = cron.schedule(
             EVERY_5_MINUTES,
             () => {
-                try {
-                    logger.info('Triggering checkAndNotifySlotsForWashim');
-                    const date = getCurrentFormattedTimestamp('DD-MM-YYYY');
-                    this.checkAndNotifyService.checkAndNotifySlotsForWashim(date);
-                } catch (err) {
-                    const error: VError = new VError(err, 'ERR in scheduled job');
-                    logger.error(error.stack);
-                }
+                (async () => {
+                    try {
+                        logger.info('Triggering checkAndNotifySlotsForWashim');
+                        const date = getCurrentFormattedTimestamp('DD-MM-YYYY');
+                        await this.checkAndNotifyService.checkAndNotifySlotsForWashim(date);
+                    } catch (err) {
+                        const error: VError = new VError(err, 'ERR in scheduled job');
+                        logger.error(error.stack);
+                        notifyToFlock(`*[NotifyServer]* ${error.stack}`);
+                    }
+                })();
             },
             {
                 scheduled: false,

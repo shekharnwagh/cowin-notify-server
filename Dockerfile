@@ -6,7 +6,7 @@ FROM node:14-alpine
 WORKDIR /usr/src/app
 
 # APP Environment
-ENV APP_ENV="staging"
+ENV APP_ENV="production"
 
 # HUSKY Disable Hooks
 ENV HUSKY=0

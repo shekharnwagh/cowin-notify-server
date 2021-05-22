@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import safeStringify from 'fast-safe-stringify';
+import tunnel from 'tunnel';
 import VError from 'verror';
 import { notifyToFlock } from './flock';
 import Constants from '../common/constants';
@@ -110,12 +111,19 @@ export class CheckSlotAndNotifyService {
         dateStr: string,
     ): Promise<void> => {
         const { SESSIONS_BY_DISTRICT: apiUrl } = Constants.API_URL;
+        const agent = tunnel.httpsOverHttp({
+            proxy: {
+                host: '180.151.231.166',
+                port: 80,
+            },
+        });
         const requestConfig: AxiosRequestConfig = {
             params: {
                 district_id: districtCode,
                 date: dateStr,
             },
             headers: this.constructHeaders(),
+            httpsAgent: agent,
         };
 
         try {

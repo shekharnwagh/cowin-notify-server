@@ -11,6 +11,10 @@
         "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
         "start": "node .build/server.js",
         "build:image": "docker build -t cowin-notify-server .",
+        "image:tag": "docker image tag cowin-notify-server:latest shekharwagh/cowin-notify-server:latest",
+        "image:push": "docker push shekharwagh/cowin-notify-server:latest",
+        "image:cleanup-image": "docker image rm shekharwagh/cowin-notify-server:latest",
+        "docker:publish": "npm run build:image && npm run image:tag && npm run image:push && npm run image:cleanup-image",
         "heroku:push-image": "heroku container:push web -a cowin-notify-server",
         "heroku:release-image": "heroku container:release web -a cowin-notify-server",
         "heroku:deploy": "npm run heroku:push-image && npm run heroku:release-image"

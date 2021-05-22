@@ -52,7 +52,7 @@ const constants = {
         },
     },
     CRON_SCHEDULES: {
-        EVERY_5_MINUTES: '*/5 * * * *',
+        EVERY_5_MINUTES: '*/2 * * * *',
     },
     TZ: {
         IST: 'Asia/Kolkata',

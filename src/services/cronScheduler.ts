@@ -11,10 +11,10 @@ export class CronScheduler {
     private checkAndNotifyService: CheckSlotAndNotifyService;
 
     constructor() {
-        const { EVERY_5_MINUTES } = Constants.CRON_SCHEDULES;
+        const { EVERY_MINUTE } = Constants.CRON_SCHEDULES;
         this.checkAndNotifyService = new CheckSlotAndNotifyService();
         this.scheduler = cron.schedule(
-            EVERY_5_MINUTES,
+            EVERY_MINUTE,
             () => {
                 (async () => {
                     try {
